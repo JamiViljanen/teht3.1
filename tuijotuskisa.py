@@ -1,8 +1,20 @@
 import random
 import time
 
+class Olento:
+    """Luokka, joka kuvaa olennon.
 
-class Peikko:
+    :ivar rohkeus: arvotaan olentojen rohkeutta
+    :type rohkeus: int
+    :ivar katseen_voima: arvotaan olentojen katseitten voimaa
+    :type katseen_voima: int
+    """
+
+    def __init__(self, rohkeus, katseen_voima):
+        self.rohkeus = random.randint(4, 10)
+        self.katseen_voima = random.randint(2, 6)
+
+class Peikko(Olento):
     """Luokka, joka kuvaa Peikon.
 
     :ivar nimi: peikon nimi, arvotaan
@@ -19,11 +31,10 @@ class Peikko:
     NIMITAVUT = ("Ur", "Gar", "Grah", "Gur", "Kan", "Kazah", "Bar", "Bazh", "Ragh", "Rudz")
     RIEMUTAVUT = ("Agh", "Ugh", "Ourgh", "Drar", "Brar", "Dza", "Gra", "Gur", "Rah", "Urgh", "Ra")
 
-    def __init__(self):
+    def __init__(self, rohkeus, katseen_voima):
         """Konstruktori."""
         self.nimi = self._arvo_sanat(self.NIMITAVUT, 3, "-")
-        self.rohkeus = random.randint(4, 8)
-        self.katseen_voima = random.randint(2, 4)
+        super().__init__(rohkeus, katseen_voima)
 
     def _arvo_sanat(self, tavut, n, erotin, p=0.5):
         """Muodostaa satunnaisen tekstin annetuista tavuista.
@@ -58,7 +69,7 @@ class Peikko:
 
 
 ### Kirjoita luokka Sankari tähän.
-class Sankari:
+class Sankari(Olento):
     """Luokka, joka kuvaa sankaria.
 
     :ivar nimi: sankarin nimi
@@ -70,15 +81,14 @@ class Sankari:
     """
     HURRAUKSET = ("Jatkoon!", "Nonni!", "Rohkeutta!", "Helppoa oli!")
 
-    def __init__(self, nimi):
+    def __init__(self, nimi, rohkeus, katseen_voima):
         """Konstruktori.
 
         :param nimi: sankarin nimi
         :type nimi: str
         """
         self.nimi = nimi
-        self.rohkeus = random.randint(6, 10)
-        self.katseen_voima = random.randint(3, 6)
+        super().__init__(rohkeus, katseen_voima)
 
     def arvo_hurraus(self):
         """Palauttaa satunnaisen hurraushuudahduksen.
