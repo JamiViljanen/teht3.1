@@ -53,12 +53,40 @@ class Peikko:
 
         :return: hurraava huudahdus
         :rtype: str
-        """
+        """ 
         return self._arvo_sanat(self.RIEMUTAVUT, 8, " ", 0.7)
 
 
 ### Kirjoita luokka Sankari tähän.
+class Sankari:
+    """Luokka, joka kuvaa sankaria.
 
+    :ivar nimi: sankarin nimi
+    :type nimi: str
+    :ivar rohkeus: arvotaan sankarin rohkeus
+    :type rohkeus: int
+    :ivar katseen_voima: arvotaan sankarin katseen voima
+    :type katseen_voima: int
+    """
+    HURRAUKSET = ("Jatkoon!", "Nonni!", "Rohkeutta!", "Helppoa oli!")
+
+    def __init__(self, nimi):
+        """Konstruktori.
+
+        :param nimi: sankarin nimi
+        :type nimi: str
+        """
+        self.nimi = nimi
+        self.rohkeus = random.randint(6, 10)
+        self.katseen_voima = random.randint(3, 6)
+
+    def arvo_hurraus(self):
+        """Palauttaa satunnaisen hurraushuudahduksen.
+
+        :return: hurraava huudahdus
+        :rtype: str
+        """
+        return random.choice(self.HURRAUKSET)
 
 def hurraa(olio):
     """Tulostaa satunnaisen hurrauksen annetulle oliolle.
