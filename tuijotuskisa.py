@@ -61,8 +61,14 @@ class Peikko(Olento):
         :rtype: str
         """ 
         return self._arvo_sanat(self.RIEMUTAVUT, 8, " ", 0.7)
+    
+class Vuorenpeikko(Peikko):
+    NIMITAVUT = ("Kru", "Bra", "Worz", "Rei", "Tolt", "Wru", "Wre", "Bi")
+    RIEMUTAVUT = ("Hi", "Hie", "Haw", "Ha", "HiHi", "Hah")
 
-
+class Luolapeikko(Peikko):
+    NIMITAVUT = ("Cla", "sh", "Ro", "Ya", "Le")
+    RIEMUTAVUT = ("Ni", "gg", "a", "er")
 ### Kirjoita luokka Sankari tähän.
 class Sankari(Olento):
     """Luokka, joka kuvaa sankaria.
@@ -156,6 +162,7 @@ def taistele(vasen, oikea):
 
 
 sankari = Sankari(input("Mikä on sankarimme nimi? "))
+peikot = [Peikko(), Vuorenpeikko(), Luolapeikko()]
 pelastetut = 0
 # Käydään tuijotuskisoja peikkoja vastaan, kunnes sankari karkaa
 while sankari.rohkeus > 0:
@@ -165,7 +172,7 @@ while sankari.rohkeus > 0:
     time.sleep(0.7)
 
     # Tulostetaan vastaan tulevan peikon tiedot.
-    peikko = Peikko()
+    peikko = random.choice(peikot)
     peikon_tiedot = peikko.nimi + " [" + str(peikko.rohkeus) + "]"
     print(f"Vastaan tulee hurja {peikon_tiedot}!")
     time.sleep(1)
