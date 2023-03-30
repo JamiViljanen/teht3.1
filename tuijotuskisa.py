@@ -1,17 +1,26 @@
 import random
 import time
 
+class Olento:
+    """Luokka, joka kuvaa olennon.
+    :ivar rohkeus: arvotaan olentojen rohkeutta
+    :type rohkeus: int
+    :ivar katseen_voima: arvotaan olentojen katseitten voimaa
+    :type katseen_voima: int
+    """
 
-class Peikko:
+    def __init__(self):
+        self.rohkeus = random.randint(4, 10)
+        self.katseen_voima = random.randint(2, 6)
+
+class Peikko(Olento):
     """Luokka, joka kuvaa Peikon.
-
     :ivar nimi: peikon nimi, arvotaan
     :type nimi: str
     :ivar rohkeus: peikon rohkeus, arvotaan
     :type rohkeus: int
     :ivar katseen_voima: peikon katseen voimakkuus, arvotaan
     :type katseen_voima: int
-
     Julkiset metodit
         arvo_hurraus()
     """
@@ -22,12 +31,10 @@ class Peikko:
     def __init__(self):
         """Konstruktori."""
         self.nimi = self._arvo_sanat(self.NIMITAVUT, 3, "-")
-        self.rohkeus = random.randint(4, 8)
-        self.katseen_voima = random.randint(2, 4)
+        super().__init__()
 
     def _arvo_sanat(self, tavut, n, erotin, p=0.5):
         """Muodostaa satunnaisen tekstin annetuista tavuista.
-
         :param tavut: ne tavut, joita palautettava teksti voi sisältää
         :type tavut: Union[list[str], tuple[str]]
         :param n: mukaan poimittavien tavujen maksimimäärä
@@ -50,17 +57,21 @@ class Peikko:
 
     def arvo_hurraus(self):
         """Palauttaa satunnaisen hurraushuudahduksen.
-
         :return: hurraava huudahdus
         :rtype: str
         """ 
         return self._arvo_sanat(self.RIEMUTAVUT, 8, " ", 0.7)
+    
+class Vuorenpeikko(Peikko):
+    NIMITAVUT = ("Kru", "Bra", "Worz", "Rei", "Tolt", "Wru", "Wre", "Bi")
+    RIEMUTAVUT = ("Hi", "Hie", "Haw", "Ha", "HiHi", "Hah")
 
-
+class Luolapeikko(Peikko):
+    NIMITAVUT = ("Cla", "sh", "Ro", "Ya", "Le")
+    RIEMUTAVUT = ("Ni", "gg", "a", "er")
 ### Kirjoita luokka Sankari tähän.
-class Sankari:
+class Sankari(Olento):
     """Luokka, joka kuvaa sankaria.
-
     :ivar nimi: sankarin nimi
     :type nimi: str
     :ivar rohkeus: arvotaan sankarin rohkeus
@@ -72,17 +83,14 @@ class Sankari:
 
     def __init__(self, nimi):
         """Konstruktori.
-
         :param nimi: sankarin nimi
         :type nimi: str
         """
         self.nimi = nimi
-        self.rohkeus = random.randint(6, 10)
-        self.katseen_voima = random.randint(3, 6)
+        super().__init__()
 
     def arvo_hurraus(self):
         """Palauttaa satunnaisen hurraushuudahduksen.
-
         :return: hurraava huudahdus
         :rtype: str
         """
@@ -90,7 +98,6 @@ class Sankari:
 
 def hurraa(olio):
     """Tulostaa satunnaisen hurrauksen annetulle oliolle.
-
     :param olio: hurraava olio
     """
     print(f'{olio.nimi}: "{olio.arvo_hurraus()}!"')
@@ -98,7 +105,6 @@ def hurraa(olio):
 
 def tulosta_rapaytys(rapayttaja):
     """Tulostaa sopivan tekstin räpäyttävälle oliolle.
-
     :param rapayttaja: silmiään räpäyttävä olio
     """
     if rapayttaja:
@@ -112,7 +118,6 @@ def tulosta_rapaytys(rapayttaja):
 
 def tuijota(olio1, olio2):
     """Asettaa annetut oliot taistelemaan keskenään yhden kierroksen.
-
     :param vasen: ensimmäinen taisteleva olio
     :type vasen: Union[Sankari, Peikko]
     :param oikea: toinen taisteleva olio
@@ -139,7 +144,6 @@ def tuijota(olio1, olio2):
 
 def taistele(vasen, oikea):
     """Asettaa annetut oliot taistelemaan keskenään, kunnes toinen voittaa.
-
     :param vasen: ensimmäinen taisteleva olio
     :type vasen: Union[Sankari, Peikko]
     :param oikea: toinen taisteleva olio
@@ -158,6 +162,7 @@ def taistele(vasen, oikea):
 
 
 sankari = Sankari(input("Mikä on sankarimme nimi? "))
+peikot = [Peikko(), Vuorenpeikko(), Luolapeikko()]
 pelastetut = 0
 # Käydään tuijotuskisoja peikkoja vastaan, kunnes sankari karkaa
 while sankari.rohkeus > 0:
@@ -167,7 +172,7 @@ while sankari.rohkeus > 0:
     time.sleep(0.7)
 
     # Tulostetaan vastaan tulevan peikon tiedot.
-    peikko = Peikko()
+    peikko = random.choice(peikot)
     peikon_tiedot = peikko.nimi + " [" + str(peikko.rohkeus) + "]"
     print(f"Vastaan tulee hurja {peikon_tiedot}!")
     time.sleep(1)
