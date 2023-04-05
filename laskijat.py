@@ -35,9 +35,46 @@ class Laskija:
 
 
 ### Lisää MonenLaskija ja argumenttien_tulostaja tähän.
+class MonenLaskija(Laskija):
+    """Luokka, joka toteuttaa eri laskutoimituksia, joissa voi olla kuinka monta lukua tahansa.
 
+    Julkiset metodit:
+        summaa(*lukujoukko: Union[int, float])
+        kerro(*lukujoukko: Union[int, float])
+    """
 
+    def summaa(self, *lukujoukko):
+        """Palauttaa annettujen lukujen summan.
 
+        :param lukujoukko: joukko lukuja
+        :type lukujoukko: Union[int, float]
+        :return: annettujen lukujen summa
+        :rtype: Union[int, float]
+        """
+        return sum(lukujoukko)
+
+    def kerro(self, *lukujoukko):
+        """Palauttaa annettujen lukujen tulon.
+
+        :param lukujoukko: joukko lukuja
+        :type lukujoukko: Union[int, float]
+        :return: annettujen lukujen tulo
+        :rtype: Union[int, float]
+        """
+        tulo = 1
+        for luku in lukujoukko:
+            tulo *= luku
+        return tulo
+   
+
+def argumenttien_tulostaja(**kwargs):
+    """Tulostaa annettujen avainsana-argumenttien arvot.
+
+    :param kwargs: avainsana-argumentit
+    :type kwargs: dict
+    """
+    for avainsana, arvo in kwargs.items():
+        print(f'Argumentin "{avainsana}" arvo on {arvo}.')
 
 ### Seuraavat rivit tekevät tarkistustulostukset. Älä koske niihin.
 
